@@ -18,5 +18,36 @@ function sendMail() {
         });
 }
 
+let currentSlide = 0;
+const slides = document.querySelectorAll('.slide');
+const totalSlides = slides.length;
+
+function updateSlidePosition() {
+    const slideWidth = slides[0].clientWidth;
+    const slidesContainer = document.querySelector('.slides');
+    slidesContainer.style.transform = `translateX(-${currentSlide * slideWidth}px)`;
+}
+
+function nextSlide() {
+    if (currentSlide < totalSlides - 1) {
+        currentSlide++;
+    } else {
+        currentSlide = 0;
+    }
+    updateSlidePosition();
+}
+
+function prevSlide() {
+    if (currentSlide > 0) {
+        currentSlide--;
+    } else {
+        currentSlide = totalSlides - 1;
+    }
+    updateSlidePosition();
+}
+
+window.addEventListener('resize', updateSlidePosition);
+
+
 // Make sure to initialize EmailJS somewhere in your code
 // emailjs.init('YOUR_USER_ID');
